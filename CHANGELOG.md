@@ -10,3 +10,4 @@
 - Previewable Markdown/JSON handoffs and private SQLite backup.
 - Authenticated loopback HTTP interface, CLI and dependency-free launch scripts.
 - Regression fixes for manual Unicode normalization, associated file ownership, resolved credential aliases, opened-file destinations, confirmation version matching and literal Markdown metadata.
+- Canonical root registration and canonical filesystem fixtures support Windows runner temporary short paths without loosening allowed-root boundaries.

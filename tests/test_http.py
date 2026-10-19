@@ -14,7 +14,7 @@ class HttpTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
-        self.base = Path(self.tmp.name)
+        self.base = Path(self.tmp.name).resolve()
         self.s = Store(self.base / 'index.sqlite')
         self.s.import_records([dict(thread_id='c',item_id='u',role='user',text='中文资料 <script>alert(1)</script>',title='课程')])
         self.tid = self.s.search('中文')[0]['id']

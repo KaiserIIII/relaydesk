@@ -25,7 +25,7 @@ class BoundaryTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
-        self.base = Path(self.tmp.name)
+        self.base = Path(self.tmp.name).resolve()
         self.allowed = self.base / 'allowed'
         self.allowed.mkdir()
 
@@ -71,6 +71,13 @@ class BoundaryTests(unittest.TestCase):
         out = export_handoff(s,tid)['markdown']
         self.assertIn('```text\nthread=t\n![tracking](https://example.invalid/metadata)',out)
         self.assertIn('```text\n![tracking](https://example.invalid/path)\n```',out)
+
+    def test_root_registration_pins_canonical_target_before_later_checks(self):
+        alias = self.base/'registered-root'
+        link_directory(alias,self.allowed)
+        s = Store(self.base/'index.sqlite')
+        s.set_setting('roots',[str(alias)])
+        self.assertEqual(s.setting('roots'),[str(self.allowed.resolve())])
 
 
 if __name__ == '__main__':

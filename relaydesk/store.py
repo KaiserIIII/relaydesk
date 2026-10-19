@@ -10,6 +10,7 @@ import uuid
 
 from .privacy import redact
 from .artifacts import ArtifactStore
+from .files import local_path
 
 STATUSES = {'unreviewed', 'active', 'waiting', 'accepted', 'paused'}
 CATEGORIES = {'general', 'study', 'game', 'research', 'software', 'personal'}
@@ -189,6 +190,17 @@ class Store(ArtifactStore):
             return json.loads(row[0]) if row else default
 
     def set_setting(self, key, value):
+        if key == 'roots':
+            if not isinstance(value, list) or len(value) > 32:
+                raise ValueError('Register at most 32 local directories')
+            canonical = []
+            for raw in value:
+                path = local_path(raw)
+                if not path.is_dir():
+                    raise ValueError('Allowed root must be an existing directory')
+                if str(path) not in canonical:
+                    canonical.append(str(path))
+            value = canonical
         with self.connect() as db:
             db.execute('insert or replace into settings values(?,?)', (key, json.dumps(value, ensure_ascii=False)))
 

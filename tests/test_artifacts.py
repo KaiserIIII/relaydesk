@@ -12,7 +12,7 @@ class ArtifactTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
-        self.base = Path(self.tmp.name)
+        self.base = Path(self.tmp.name).resolve()
         self.root = self.base / 'allowed'
         self.root.mkdir()
         self.doc = self.root / '中文讲义.md'
