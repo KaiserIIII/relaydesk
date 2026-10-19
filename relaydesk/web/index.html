@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RelayDesk · 我的任务与成果</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="RelayDesk 首页"><span class="brand-mark">R</span><span>RelayDesk<small>把事情接着做</small></span></a>
+  <div class="local"><span class="dot"></span> 本机运行 · 数据留在这里</div>
+  <div class="nav-label">我的工作空间</div>
+  <nav id="categories" aria-label="任务分类"></nav>
+  <div class="sidebar-bottom"><button id="new-task" class="secondary">＋ 新建任务</button><button id="import-codex" class="secondary">只读同步 Codex</button><label class="upload">导入 JSONL <input id="import-file" type="file" accept=".jsonl,.ndjson"></label><p>同步不会启动历史任务。<br>导出的接力卡也包含私人内容。</p></div>
+</aside>
+<main>
+  <header class="topbar"><div><div class="eyebrow">PERSONAL CONTINUITY DESK</div><h1>今天，从这里接着做。</h1><p class="subtitle">找回上下文，找到成果，把下一步留清楚。</p></div><span class="offline-badge">本地优先 / 无云端 API</span></header>
+  <section class="stats" id="stats" aria-label="索引概况"></section>
+  <section class="toolbar"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜索课程、项目、原话或成果…" aria-label="搜索任务"><kbd>Ctrl K</kbd></label><select id="status-filter" aria-label="任务状态"><option value="">全部状态</option><option value="unreviewed">待整理</option><option value="active">进行中</option><option value="waiting">待核对</option><option value="accepted">本人标注完成</option><option value="paused">已暂停</option></select></section>
+  <div id="notice" role="status" hidden></div>
+  <section class="workspace"><div class="task-panel"><div class="section-heading"><h2 id="list-title">全部任务</h2><span id="result-count"></span></div><div id="task-list"></div></div><div id="detail" class="detail-panel"><div class="empty"><span class="empty-mark">↗</span><h2>选一件事，接着往下做</h2><p>左边找到任务，右边查看原始要求、成果文件和下一步。</p><p>首次使用可以点“只读同步 Codex”，或运行命令导入虚构演示。</p></div></div></section>
+  <footer>助手说完成 ≠ 已验证通过 · 文件存在 ≠ 内容正确 · 最新修改时间 ≠ 最终可用版本</footer>
+</main>
+<dialog id="handoff-dialog"><div class="dialog-head"><h2>接力卡预览</h2><button id="close-dialog" class="secondary">关闭</button></div><p class="muted">可在下载前编辑文字；原始消息与任务备注不会被这次编辑改写。</p><textarea id="handoff-text" aria-label="可编辑接力卡"></textarea><div class="actions"><button id="download-md">下载 Markdown</button><button id="download-json" class="secondary">下载 JSON（完整来源）</button></div></dialog>
+</body></html>
